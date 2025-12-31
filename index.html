@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Casa Turística en Villa General Belgrano | Alquiler Vacacional</title>
+
+    <meta name="description" content="Casa turística en Villa General Belgrano. Alojamiento completo para 6 personas, rodeado de naturaleza, ideal para descansar.">
+    <meta name="keywords" content="casa en alquiler, villa general belgrano, cabaña, turismo, vacaciones">
+    <meta name="author" content="Casa Turística">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+    <h1>Casa Turística en Villa General Belgrano</h1>
+    <p>Descansá, conectá con la naturaleza y disfrutá de una estadía única</p>
+    <a href="#reserva" class="btn-reserva">Consultar disponibilidad</a>
+</header>
+
+<section class="descripcion">
+  <h2>Tu lugar ideal para descansar</h2>
+
+  <p>
+    Ubicada en un entorno natural único, nuestra casa ofrece la combinación perfecta
+    entre tranquilidad, comodidad y una excelente ubicación. A pocos kilómetros de
+    <strong>Los Reartes</strong>, es el lugar ideal para desconectarse y disfrutar del paisaje.
+  </p>
+
+  <p>
+    Pensada para brindar una estadía confortable, cuenta con espacios amplios,
+    luminosos y totalmente equipados, ideales para familias o parejas.
+  </p>
+
+  <h3>Servicios y comodidades</h3>
+
+  <div class="servicios-grid">
+    <div>🛏️ Ambientes cómodos</div>
+    <div>❄️ Aire acondicionado</div>
+    <div>📶 Wi-Fi</div>
+    <div>🍳 Cocina equipada</div>
+    <div>🔥 Parrilla</div>
+    <div>🚗 Cochera privada</div>
+    <div>🌄 Entorno natural</div>
+    <div>🧘‍♂️ Ideal para descansar</div>
+  </div>
+</section>
+
+<section class="galeria">
+    <h2>Galería</h2>
+    <div class="imagenes">
+        <!-- Usar imágenes WEBP optimizadas -->
+        <img src="images/photo_1_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        <img src="images/photo_2_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        <img src="images/photo_4_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        <img src="images/photo_5_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        <img src="images/photo_6_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        <img src="images/photo_8_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        
+        <img src="images/photo_11_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        
+        
+        <img src="images/photo_15_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        
+        <img src="images/photo_18_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        <img src="images/photo_20_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        <img src="images/photo_22_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        <img src="images/photo_24_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        <img src="images/photo_26_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        <img src="images/photo_27_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        <img src="images/photo_28_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        
+        
+        <img src="images/photo_32_2025-12-28_23-17-04.jpg" loading="lazy" onclick="zoom(this)">
+        
+        
+    </div>
+</section>
+
+<div id="modal" onclick="cerrarModal(event)">
+    <button class="modal-arrow left" onclick="cambiarFoto(-1)">❮</button>
+    <img id="modal-img">
+    <button class="modal-arrow right" onclick="cambiarFoto(1)">❯</button>
+</div>
+
+<section class="recorrido">
+
+<h2 class="titulo-video">Recorrido del lugar</h2>
+
+<div class="video-container">
+  <video 
+    src="video/IMG-4391.mp4"
+    controls
+    preload="metadata">
+  </video>
+</div>
+</section>
+
+<section class="mapa">
+    <h2>Ubicación</h2>
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3076.7436441619493!2d-64.551052!3d-31.952768000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDU3JzEwLjAiUyA2NMKwMzMnMDMuOCJX!5e1!3m2!1ses!2sar!4v1767147863158!5m2!1ses!2sar"
+        loading="lazy">
+    </iframe>
+</section>
+
+<section id="reserva" class="reserva-box">
+
+  <h2>Consultar disponibilidad</h2>
+
+  <form id="consultaForm">
+    <label>Nombre</label>
+    <input type="text" id="nombre" required>
+
+    <label>Fechas de estadía</label>
+
+    <div id="calendario"></div>
+
+    <input type="hidden" id="fechas">
+
+    <label>Cantidad de personas</label>
+    <input type="number" id="personas" min="1" required>
+
+    <button type="submit">Consultar por WhatsApp</button>
+  </form>
+</div>
+</section>
+
+<a href="https://wa.me/5493546436791" class="wpp-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<footer>
+    <p>© 2025 Casa Turística — Todos los derechos reservados</p>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  flatpickr("#fechas", {
+    locale: flatpickr.l10ns.es,
+    mode: "range",
+    dateFormat: "d/m/Y",
+    minDate: "today",
+  });
+
+  document.getElementById("consultaForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value;
+    const fechas = document.getElementById("fechas").value;
+    const personas = document.getElementById("personas").value;
+
+    if (!nombre || !fechas || !personas) {
+      alert("Completá todos los campos");
+      return;
+    }
+
+    const mensaje = `Hola! Soy ${nombre}. Quisiera consultar disponibilidad del ${fechas} para ${personas} personas.`;
+    window.open(`https://wa.me/5493546436791?text=${encodeURIComponent(mensaje)}`, "_blank");
+  });
+
+});
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
