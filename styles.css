@@ -316,7 +316,3 @@ select {
   margin-top: 5px;
   font-size: 15px;
 }
-
-#modal img {
-  touch-action: pan-y;
-}
