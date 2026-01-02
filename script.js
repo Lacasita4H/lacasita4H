@@ -90,3 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
     window.open(`https://wa.me/5493546436791?text=${encodeURIComponent(mensaje)}`, "_blank");
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const video = document.querySelector('video');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        video.setAttribute('preload', 'auto');
+        observer.unobserve(video);
+      }
+    });
+  }, {threshold: 0.25});
+  observer.observe(video);
+});
