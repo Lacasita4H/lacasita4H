@@ -1,346 +1,144 @@
-/* ===============================
-   VARIABLES
-================================ */
-:root {
-  --primary: #e67e22;
-  --dark: #2c3e50;
-  --light: #f4f4f4;
-  --text: #333;
-}
+document.addEventListener("DOMContentLoaded", function () {
 
-/* ===============================
-   RESET
-================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  // ===== GALERÍA =====
+  // ===== Lazy-loading (imágenes y video) =====
+  var lazyImages = document.querySelectorAll('img.lazy[data-src]');
+  var lazyVideos = document.querySelectorAll('video.lazy-video[data-src]');
 
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: var(--light);
-  color: var(--text);
-  line-height: 1.6;
-}
+  // Debug: indicar que el script se ejecutó
+  try { console.log('script.js: lazy loader init'); } catch(e) {}
 
-/* ===============================
-   HEADER
-================================ */
-header {
-  min-height: 90vh;
-  background: 
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("images/photo_2_2025-12-28_23-17-04.webp") center/cover no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  color: white;
-}
+  if (typeof window.IntersectionObserver !== 'undefined') {
+    var imgObserver = new IntersectionObserver(function(entries, obs) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var img = entry.target;
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+          img.classList.remove('lazy');
+          img.classList.add('lazyloaded');
+          obs.unobserve(img);
+        }
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.01 });
 
-@media (max-width: 768px) {
-  header {
-    background: 
-      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-      url("images/photo_2_2025-12-28_23-17-04.webp") center/cover no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-}
+    Array.prototype.forEach.call(lazyImages, function(img){ imgObserver.observe(img); });
 
-header h1 {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  margin-bottom: 15px;
-}
+    var vidObserver = new IntersectionObserver(function(entries, obs) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var v = entry.target;
+          v.src = v.dataset.src;
+          try { v.load(); } catch(e) {}
+          v.classList.remove('lazy-video');
+          obs.unobserve(v);
+        }
+      });
+    }, { rootMargin: '300px 0px', threshold: 0.01 });
 
-header p {
-  max-width: 650px;
-  font-size: 1.2rem;
-}
-
-.btn-reserva {
-  margin-top: 25px;
-  background: var(--primary);
-  color: white;
-  padding: 15px 40px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s ease;
-}
-
-.btn-reserva:hover {
-  background: #cf6d17;
-  transform: translateY(-3px);
-}
-
-/* ===============================
-   SECCIONES GENERALES
-================================ */
-section {
-  max-width: 1100px;
-  margin: 60px auto;
-  padding: 40px 25px;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: var(--dark);
-}
-
-/* ===============================
-   DESCRIPCIÓN
-================================ */
-.descripcion {
-  max-width: 900px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-.descripcion p {
-  margin-bottom: 20px;
-}
-
-/* ===============================
-   SERVICIOS
-================================ */
-.servicios-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 25px;
-}
-
-.servicios-grid div {
-  background: #f5f5f5;
-  padding: 16px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 500;
-}
-
-/* ===============================
-   GALERÍA
-================================ */
-.galeria .imagenes {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 10px;
-}
-
-.galeria img {
-  flex: 0 0 auto;
-  width: 280px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  scroll-snap-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.galeria img:hover {
-  transform: scale(1.03);
-}
-
-/* Lazy placeholders */
-.galeria img.lazy {
-  background: linear-gradient(90deg,#eee,#f6f6f6);
-  transition: opacity 0.25s ease, filter 0.25s ease;
-  opacity: 0.8;
-}
-.galeria img.lazyloaded {
-  opacity: 1;
-  filter: none;
-}
-
-.video-container video.lazy-video {
-  background: #000;
-}
-
-/* ===============================
-   MODAL GALERÍA
-================================ */
-#modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-#modal img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
-}
-
-.modal-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
-  color: white;
-  font-size: 28px;
-  border: none;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.modal-arrow.left { left: 25px; }
-.modal-arrow.right { right: 25px; }
-
-/* ===============================
-   VIDEO
-================================ */
-.video-container {
-  width: 100%;
-  max-width: 420px;
-  margin: 40px auto;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.video-container video {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ===============================
-   FORMULARIO
-================================ */
-.reserva-box {
-  max-width: 420px;
-  margin: 40px auto;
-  padding: 25px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.reserva-box h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.reserva-box label {
-  font-weight: 600;
-  margin-top: 10px;
-  display: block;
-}
-
-.reserva-box input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.reserva-box button {
-  width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  background: #25D366;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.reserva-box button:hover {
-  background: #1ebe5d;
-}
-
-/* ===============================
-   WHATSAPP FLOAT
-================================ */
-.wpp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: #25D366;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-  z-index: 1000;
-}
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 768px) {
-  header {
-    min-height: 70vh;
+    Array.prototype.forEach.call(lazyVideos, function(v){ vidObserver.observe(v); });
+  } else {
+    // Fallback si IntersectionObserver no está disponible
+    Array.prototype.forEach.call(lazyImages, function(img){ if (img.dataset && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); img.classList.remove('lazy'); } });
+    Array.prototype.forEach.call(lazyVideos, function(v){ if (v.dataset && v.dataset.src) { v.src = v.dataset.src; try { v.load(); } catch(e){}; v.classList.remove('lazy-video'); } });
   }
 
-  .galeria img {
-    min-width: 280px;
+  // Al cargar la página recopilamos las URLs de las imágenes (reales si existen en data-src)
+  var imagenes = [];
+  // Índice de la imagen actualmente mostrada en el modal
+  var index = 0;
+
+  // Función auxiliar usada por el atributo onclick="zoom(this)"
+  window.zoom = function(imgEl) {
+    var imgs = document.querySelectorAll('.galeria img');
+    var idx = -1;
+    for (var k = 0; k < imgs.length; k++) if (imgs[k] === imgEl) { idx = k; break; }
+    if (idx !== -1) abrirModal(idx);
+  };
+
+  // Recorremos todas las imágenes dentro de `.galeria`:
+  // - guardamos su `data-src` (si existe) o su `src` en `imagenes`
+  // - añadimos un listener para abrir el modal al hacer click
+  var galImgs = document.querySelectorAll('.galeria img');
+  Array.prototype.forEach.call(galImgs, function(img, i){
+    var realSrc = (img.dataset && img.dataset.src) ? img.dataset.src : img.src;
+    imagenes.push(realSrc);
+    img.addEventListener('click', function(){ abrirModal(i); });
+  });
+
+  /**
+   * abrirModal(i)
+   * - Establece el índice activo
+   * - Muestra el modal (cambiando display a flex)
+   * - Carga la imagen correspondiente en el elemento #modal-img
+   * @param {number} i - índice de la imagen a mostrar
+   */
+  function abrirModal(i) {
+    index = i;
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modal-img").src = imagenes[index];
   }
-}
 
-/* ELIMINAR si existen */
-.descripcion {
-  margin: 60px auto;
-}
+  /**
+   * cambiarFoto(dir)
+   * - Función expuesta en `window` para que botones (prev/next) la llamen desde HTML
+   * - Actualiza `index` sumando `dir` (puede ser -1 o +1) y hace wrap-around con modulo
+   * @param {number} dir - dirección (-1 para anterior, +1 para siguiente)
+   */
+  window.cambiarFoto = function (dir) {
+    index = (index + dir + imagenes.length) % imagenes.length;
+    document.getElementById("modal-img").src = imagenes[index];
+  };
 
-.reserva-box {
-  margin: 40px auto;
-}
+  /**
+   * cerrarModal(e)
+   * - Función expuesta en `window` usada para cerrar el modal al hacer click fuera de la imagen
+   * - Cierra el modal solo si el target es el propio contenedor `#modal`
+   * @param {Event} e - evento de click
+   */
+  window.cerrarModal = function (e) {
+    if (e.target.id === "modal") {
+      document.getElementById("modal").style.display = "none";
+    }
+  };
 
-.wpp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: #25D366;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-  z-index: 1000;
-  transition: transform 0.2s ease;
-}
+  // ===== FLATPICKR =====
+  // Configura el selector de fechas `#fechas`:
+  // - locale: español
+  // - mode: range (rango de días)
+  // - dateFormat: formato día/mes/año
+  // - minDate: hoy (no se pueden seleccionar fechas pasadas)
+  flatpickr("#fechas", {
+    locale: flatpickr.l10ns.es,
+    mode: "range",
+    dateFormat: "d/m/Y",
+    minDate: "today"
+  });
 
-.wpp-float:hover {
-  transform: scale(1.1);
-}
+  // ===== FORMULARIO =====
+  // Al enviar el formulario `#consultaForm`:
+  // - prevenimos el envío por defecto (page reload)
+  // - obtenemos los valores de los campos nombre, fechas y personas
+  // - validamos que estén completos
+  // - construimos un mensaje y abrimos WhatsApp en una nueva pestaña con ese texto
+  document.getElementById('consultaForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 5px;
-  font-size: 15px;
-}
+    var nombre = document.getElementById('nombre').value;
+    var fechas = document.getElementById('fechas').value;
+    var personas = document.getElementById('personas').value;
+
+    // Validación básica: todos los campos deben tener valor
+    if (!nombre || !fechas || !personas) {
+      alert('Completá todos los campos');
+      return;
+    }
+
+    // Mensaje preparado para enviar por WhatsApp. `encodeURIComponent` asegura que
+    // los caracteres especiales y espacios sean codificados correctamente en la URL.
+    var mensaje = 'Hola! Soy ' + nombre + '. Quisiera consultar disponibilidad del ' + fechas + ' para ' + personas + ' personas.';
+
+    // Abrimos WhatsApp Web con el mensaje ya cargado en una nueva pestaña
+    window.open('https://wa.me/5493546436791?text=' + encodeURIComponent(mensaje), '_blank');
+  });
+});
