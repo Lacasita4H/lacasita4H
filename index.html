@@ -14,10 +14,9 @@
 
     <link rel="icon" href="favicon.png" type="image/png">
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="preload" as="image" href="images/photo_2_2025-12-28_23-17-04.webp" media="(min-width: 769px)">
 
@@ -59,41 +58,26 @@
   </div>
 </section>
 
-<!-- Stub: definición temprana de zoom para evitar errores si script.js falla -->
-<script>
-  // Función mínima que abre el modal con la imagen actual (usa data-src si existe)
-  window.zoom = function(el){
-    try{
-      var img = document.getElementById('modal-img');
-      if (!img) return;
-      var src = (el && el.dataset && el.dataset.src) ? el.dataset.src : (el && el.src ? el.src : '');
-      img.src = src;
-      var modal = document.getElementById('modal');
-      if (modal) modal.style.display = 'flex';
-    }catch(e){console.warn('zoom stub failed', e);}
-  };
-</script>
-
 <section class="galeria">
     <h2>Galería</h2>
     <div class="imagenes">
-        <!-- Imágenes optimizadas: cargan bajo demanda con placeholder -->
-        <img class="lazy" data-src="images/photo_1_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 1 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_2_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 2 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">       
-        <img class="lazy" data-src="images/photo_4_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 3 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_5_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 4 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_6_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 5 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">       
-        <img class="lazy" data-src="images/photo_8_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 6 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">                
-        <img class="lazy" data-src="images/photo_11_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 7 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">     
-        <img class="lazy" data-src="images/photo_15_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 8 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">   
-        <img class="lazy" data-src="images/photo_18_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 9 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">    
-        <img class="lazy" data-src="images/photo_20_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 10 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">     
-        <img class="lazy" data-src="images/photo_22_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 11 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_24_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 12 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_26_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 13 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_27_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 14 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
-        <img class="lazy" data-src="images/photo_28_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 15 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)"> 
-        <img class="lazy" data-src="images/photo_32_2025-12-28_23-17-04.webp" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='200'></svg>" alt="Foto 16 del lugar" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <!-- Usar imágenes WEBP optimizadas -->
+        <img src="images/photo_1_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_2_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">       
+        <img src="images/photo_4_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_5_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_6_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">       
+        <img src="images/photo_8_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">                
+        <img src="images/photo_11_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">     
+        <img src="images/photo_15_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">   
+        <img src="images/photo_18_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">    
+        <img src="images/photo_20_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">     
+        <img src="images/photo_22_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_24_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_26_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_27_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
+        <img src="images/photo_28_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)"> 
+        <img src="images/photo_32_2025-12-28_23-17-04.webp" loading="lazy" decoding="async" width="280" height="200" onclick="zoom(this)">
         
     </div>
 </section>
@@ -110,12 +94,9 @@
 
 <div class="video-container">
   <video 
-    class="lazy-video"
-    data-src="video/IMG-4391.mp4"
+    src="video/IMG-4391.mp4"
     controls
-    preload="metadata"
-    poster="images/photo_2_2025-12-28_23-17-04.webp">
-    Tu navegador no soporta el elemento <code>video</code>.
+    preload="metadata">
   </video>
 </div>
 </section>
