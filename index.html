@@ -103,23 +103,23 @@
 
   <h2>Consultar disponibilidad</h2>
 
-  <form id="consultaForm">
-    <label>Nombre</label>
-    <input type="text" id="nombre" required>
+<form id="consultaForm">
 
-    <label>Fechas de estadía</label>
+  <label>Nombre</label>
+  <input type="text" id="nombre" required>
 
-    <div id="calendario"></div>
-
-    <input type="hidden" id="fechas">
+  <label>Fechas de estadía</label>
+  <input type="text" id="fechas" placeholder="Seleccionar fechas" readonly>
 
   <label>Personas</label>
-
   <select id="personas" required>
     <option value="">Seleccionar</option>
     <option value="1">1 persona</option>
     <option value="2">2 personas</option>
   </select>
+
+  <button type="submit">Consultar</button>
+</form>
 
 </section>
 
