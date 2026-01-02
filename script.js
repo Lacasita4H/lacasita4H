@@ -1,69 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   // ===== GALERÍA =====
-  // ===== Lazy-loading (imágenes y video) =====
-  var lazyImages = document.querySelectorAll('img.lazy[data-src]');
-  var lazyVideos = document.querySelectorAll('video.lazy-video[data-src]');
-
-  // Debug: indicar que el script se ejecutó
-  try { console.log('script.js: lazy loader init'); } catch(e) {}
-
-  if (typeof window.IntersectionObserver !== 'undefined') {
-    var imgObserver = new IntersectionObserver(function(entries, obs) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var img = entry.target;
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-          img.classList.remove('lazy');
-          img.classList.add('lazyloaded');
-          obs.unobserve(img);
-        }
-      });
-    }, { rootMargin: '200px 0px', threshold: 0.01 });
-
-    Array.prototype.forEach.call(lazyImages, function(img){ imgObserver.observe(img); });
-
-    var vidObserver = new IntersectionObserver(function(entries, obs) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var v = entry.target;
-          v.src = v.dataset.src;
-          try { v.load(); } catch(e) {}
-          v.classList.remove('lazy-video');
-          obs.unobserve(v);
-        }
-      });
-    }, { rootMargin: '300px 0px', threshold: 0.01 });
-
-    Array.prototype.forEach.call(lazyVideos, function(v){ vidObserver.observe(v); });
-  } else {
-    // Fallback si IntersectionObserver no está disponible
-    Array.prototype.forEach.call(lazyImages, function(img){ if (img.dataset && img.dataset.src) { img.src = img.dataset.src; img.removeAttribute('data-src'); img.classList.remove('lazy'); } });
-    Array.prototype.forEach.call(lazyVideos, function(v){ if (v.dataset && v.dataset.src) { v.src = v.dataset.src; try { v.load(); } catch(e){}; v.classList.remove('lazy-video'); } });
-  }
-
-  // Al cargar la página recopilamos las URLs de las imágenes (reales si existen en data-src)
-  var imagenes = [];
+  // Al cargar la página recopilamos las URLs de las imágenes
+  let imagenes = [];
   // Índice de la imagen actualmente mostrada en el modal
-  var index = 0;
-
-  // Función auxiliar usada por el atributo onclick="zoom(this)"
-  window.zoom = function(imgEl) {
-    var imgs = document.querySelectorAll('.galeria img');
-    var idx = -1;
-    for (var k = 0; k < imgs.length; k++) if (imgs[k] === imgEl) { idx = k; break; }
-    if (idx !== -1) abrirModal(idx);
-  };
+  let index = 0;
 
   // Recorremos todas las imágenes dentro de `.galeria`:
-  // - guardamos su `data-src` (si existe) o su `src` en `imagenes`
+  // - guardamos su `src` en `imagenes`
   // - añadimos un listener para abrir el modal al hacer click
-  var galImgs = document.querySelectorAll('.galeria img');
-  Array.prototype.forEach.call(galImgs, function(img, i){
-    var realSrc = (img.dataset && img.dataset.src) ? img.dataset.src : img.src;
-    imagenes.push(realSrc);
-    img.addEventListener('click', function(){ abrirModal(i); });
+  document.querySelectorAll(".galeria img").forEach((img, i) => {
+    imagenes.push(img.src);
+    img.addEventListener("click", () => abrirModal(i));
   });
 
   /**
@@ -121,24 +69,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // - obtenemos los valores de los campos nombre, fechas y personas
   // - validamos que estén completos
   // - construimos un mensaje y abrimos WhatsApp en una nueva pestaña con ese texto
-  document.getElementById('consultaForm').addEventListener('submit', function (e) {
+  document.getElementById("consultaForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    var nombre = document.getElementById('nombre').value;
-    var fechas = document.getElementById('fechas').value;
-    var personas = document.getElementById('personas').value;
+    const nombre = document.getElementById("nombre").value;
+    const fechas = document.getElementById("fechas").value;
+    const personas = document.getElementById("personas").value;
 
     // Validación básica: todos los campos deben tener valor
     if (!nombre || !fechas || !personas) {
-      alert('Completá todos los campos');
+      alert("Completá todos los campos");
       return;
     }
 
     // Mensaje preparado para enviar por WhatsApp. `encodeURIComponent` asegura que
     // los caracteres especiales y espacios sean codificados correctamente en la URL.
-    var mensaje = 'Hola! Soy ' + nombre + '. Quisiera consultar disponibilidad del ' + fechas + ' para ' + personas + ' personas.';
+    const mensaje = `Hola! Soy ${nombre}. Quisiera consultar disponibilidad del ${fechas} para ${personas} personas.`;
 
     // Abrimos WhatsApp Web con el mensaje ya cargado en una nueva pestaña
-    window.open('https://wa.me/5493546436791?text=' + encodeURIComponent(mensaje), '_blank');
+    window.open(`https://wa.me/5493546436791?text=${encodeURIComponent(mensaje)}`, "_blank");
   });
 });
