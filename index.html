@@ -59,6 +59,21 @@
   </div>
 </section>
 
+<!-- Stub: definición temprana de zoom para evitar errores si script.js falla -->
+<script>
+  // Función mínima que abre el modal con la imagen actual (usa data-src si existe)
+  window.zoom = function(el){
+    try{
+      var img = document.getElementById('modal-img');
+      if (!img) return;
+      var src = (el && el.dataset && el.dataset.src) ? el.dataset.src : (el && el.src ? el.src : '');
+      img.src = src;
+      var modal = document.getElementById('modal');
+      if (modal) modal.style.display = 'flex';
+    }catch(e){console.warn('zoom stub failed', e);}
+  };
+</script>
+
 <section class="galeria">
     <h2>Galería</h2>
     <div class="imagenes">
