@@ -104,20 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
   observer.observe(video);
 });
 
-const fechaInput = document.querySelector("#fechas");
-
-const observerFecha = new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) {
-    import('https://cdn.jsdelivr.net/npm/flatpickr').then(() => {
-      flatpickr("#fechas", {
-        locale: flatpickr.l10ns.es,
-        mode: "range",
-        dateFormat: "d/m/Y",
-        minDate: "today"
-      });
-    });
-    observerFecha.disconnect();
-  }
+flatpickr("#fechas", {
+  locale: flatpickr.l10ns.es,
+  mode: "range",
+  dateFormat: "d/m/Y",
+  minDate: "today"
 });
 
-observerFecha.observe(fechaInput);
