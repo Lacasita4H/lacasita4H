@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lacasita4h.github.io/lacasita4H/sitemap.xml
